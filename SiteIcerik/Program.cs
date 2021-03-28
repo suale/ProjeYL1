@@ -5,6 +5,7 @@ using System.Net;
 using HtmlAgilityPack;
 using StopWord;
 using NetSpell.SpellChecker.Dictionary;
+using System.Linq;
 
 namespace SiteIcerik
 {
@@ -15,7 +16,7 @@ namespace SiteIcerik
 
 
             WebClient client = new WebClient();
-            string url = "https://www.stackoverflow.com";
+            string url = "https://pub.towardsai.net/deepfakes-in-5-minutes-155c13d48fa3";
 
             Uri urlDomain = new Uri(url);
             Console.WriteLine("Domain part : " + urlDomain.Host);
@@ -264,11 +265,40 @@ namespace SiteIcerik
             }
 
             Console.WriteLine("----------------Frekans Listesi--------------------------------");
-          
+
             foreach (var item in KelimeSayilari)
             {
-                Console.WriteLine(item.Word+" "+item.Frequency);
+                Console.WriteLine(item.Word + " " + item.Frequency);
             }
+
+            KelimeSayilari = KelimeSayilari.OrderByDescending(x => x.Frequency).ToList();
+            Console.WriteLine("--------------=======================SIRALI===================000----------------------");
+
+            foreach (var item in KelimeSayilari)
+            {
+                Console.WriteLine(item.Word + " " + item.Frequency);
+            }
+
+            TfIdfCalculator agirlikHesap = new TfIdfCalculator();
+
+            List<WordAndWeight> weihtedKelimeler = new List<WordAndWeight>();
+
+            foreach (var item in KelimeSayilari)
+            {
+
+                WordAndWeight weightedKelime = new WordAndWeight();
+                weightedKelime.Weight = agirlikHesap.Calculate((float)item.Frequency, (float)kelimelerSon.Count, (float)cumleSayisi);
+                weightedKelime.Word = item.Word;
+                weihtedKelimeler.Add(weightedKelime);
+            }
+
+            Console.WriteLine("Agirliklar belli oldu-------------------------------");
+
+            foreach (var item in weihtedKelimeler)
+            {
+                Console.WriteLine(item.Word+"---------------"+item.Weight);
+            }
+
             Console.ReadLine();
         }
     }
