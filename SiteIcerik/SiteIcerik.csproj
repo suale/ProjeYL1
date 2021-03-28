@@ -98,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgirlikliKelimeListesi.cs" />
+    <Compile Include="AnahtarKelimeBelirleyici.cs" />
     <Compile Include="HtmlIsleyici.cs" />
     <Compile Include="KelimeDuzeltici.cs" />
     <Compile Include="KelimeFrekansYapici.cs" />

@@ -50,10 +50,10 @@ namespace SiteIcerik
          
            
 
-            List<WordAndFreq> KelimeFrekans = new List<WordAndFreq>();
+            List<WordAndFreq> kelimeFrekans = new List<WordAndFreq>();
             
             KelimeFrekansYapici kelimeFrekansYapici1 = new KelimeFrekansYapici();
-            KelimeFrekans=kelimeFrekansYapici1.KelimeFrekansYap(kelimeler);
+            kelimeFrekans=kelimeFrekansYapici1.KelimeFrekansYap(kelimeler);
            
 
             
@@ -68,7 +68,7 @@ namespace SiteIcerik
             
             Console.WriteLine("--------------=======================SIRALI===================----------------------");
 
-            foreach (var item in KelimeFrekans)
+            foreach (var item in kelimeFrekans)
             {
                 Console.WriteLine(item.Word + " " + item.Frequency);
             }
@@ -79,7 +79,7 @@ namespace SiteIcerik
 
             AgirlikliKelimeListesi agirlikliKelimeListesi1 = new AgirlikliKelimeListesi();
 
-            weihtedKelimeler = agirlikliKelimeListesi1.AgirlikliListeYap(KelimeFrekans, kelimeler.Count, cumleSayisi);
+            weihtedKelimeler = agirlikliKelimeListesi1.AgirlikliListeYap(kelimeFrekans, kelimeler.Count, cumleSayisi);
 
 
 
@@ -88,6 +88,14 @@ namespace SiteIcerik
             foreach (var item in weihtedKelimeler)
             {
                 Console.WriteLine(item.Word+"---------------"+item.Weight);
+            }
+            Console.WriteLine("??????????????????????????ANAHTAR KELİMELER???????????????????????????????");
+            AnahtarKelimeBelirleyici anahtarKelimeBelirleyici1 = new AnahtarKelimeBelirleyici();
+            List<WordAndFreq> anahtarKelimeler = new List<WordAndFreq>();
+            anahtarKelimeler = anahtarKelimeBelirleyici1.AnahtarKelimeBelirle(weihtedKelimeler, kelimeFrekans);
+            foreach (var item in anahtarKelimeler)
+            {
+                Console.WriteLine(item.Word+ " ----- "+ item.Frequency);
             }
 
             Console.ReadLine();
