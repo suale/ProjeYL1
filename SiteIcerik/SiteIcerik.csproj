@@ -97,6 +97,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AgirlikliKelimeListesi.cs" />
+    <Compile Include="HtmlIsleyici.cs" />
+    <Compile Include="KelimeDuzeltici.cs" />
+    <Compile Include="KelimeFrekansYapici.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TfIdfCalculator.cs" />

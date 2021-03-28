@@ -16,265 +16,59 @@ namespace SiteIcerik
 
 
             WebClient client = new WebClient();
-            string url = "https://pub.towardsai.net/deepfakes-in-5-minutes-155c13d48fa3";
+            string url = "https://www.hobo-web.co.uk/keyword-density-seo-myth/";
 
             Uri urlDomain = new Uri(url);
-            Console.WriteLine("Domain part : " + urlDomain.Host);
+            Console.WriteLine("Domain part : " + urlDomain.Host); //Domain ayrıştırır
 
 
 
-            string downloadString = client.DownloadString(url);//parametre olarak gelcek 
+            string downloadString = client.DownloadString(url);//parametre olarak gelcek -- HTML olarak content indirilir
 
             byte[] bytes = Encoding.Default.GetBytes(downloadString);
-            downloadString = Encoding.UTF8.GetString(bytes);
+            downloadString = Encoding.UTF8.GetString(bytes); //indirilen HTML utf-8 e çevrildi. Yapılmasa da olur zira ingilizce yaptık sonradan.
 
             var htmlDoc = new HtmlDocument();
-            htmlDoc.LoadHtml(downloadString);
+            htmlDoc.LoadHtml(downloadString); //Oluşturulan HtmlDocument tipindeki veriye indirilen html içeriği atanır.
 
-            int cumleSayisi=0;
+            int cumleSayisi=0; //TF-IDF hesaplamaları için  cümle sayılarının tutulacağı değişken.
 
-            var stopWords = StopWords.GetStopWords("en");
+            var stopWords = StopWords.GetStopWords("en"); // Metin işlenirken yararı olmayacak kelimelerin ayıklanması adına ingilizce stopwordsun ilgili değişkene atanması.
             
-            List<string> kelimeler = new List<string>();
-
-            WordDictionary ingSozluk = new WordDictionary();
-
-            ingSozluk.DictionaryFile = "en-US.dic";
-            
-            ingSozluk.Initialize();
-           
-            NetSpell.SpellChecker.Spelling oSpell = new NetSpell.SpellChecker.Spelling();
-
-            oSpell.Dictionary = ingSozluk;
-
-
-            if (htmlDoc.DocumentNode.SelectNodes("//p") != null)
-            {
-
-                foreach (HtmlNode node in htmlDoc.DocumentNode.SelectNodes("//p"))
-                {
-                    string[] cumleler = node.InnerText.Split('.');
-                    int toplamCumle = cumleler.Length;
-
-                    cumleSayisi = cumleSayisi + toplamCumle;
-
-                    string[] cumleKelime = node.InnerText.Split(' ');
-                    foreach (var item in cumleKelime)
-                    {
-                        if (!string.IsNullOrEmpty(item) && !string.IsNullOrWhiteSpace(item))
-                        {
-
-                            kelimeler.Add(item.ToLower());
-
-                        }
-                    }
-                }
-            }
-
-            var xpath = "//*[self::h1 or self::h2 or self::h3 or self::h4 or self::h5 or self::h6]";
-
-            if (htmlDoc.DocumentNode.SelectNodes(xpath) != null)
-            {
-                foreach (HtmlNode node in htmlDoc.DocumentNode.SelectNodes(xpath))
-                {
-
-                    cumleSayisi++;
-
-                    string[] cumleKelime = node.InnerText.Split(' ');
-                    foreach (var item in cumleKelime)
-                    {
-                        if (!string.IsNullOrEmpty(item) && !string.IsNullOrWhiteSpace(item))
-                        {
-                            kelimeler.Add(item.ToLower());
-                        }
-
-
-                    }
-
-                }
-            }
-
-
-
-            if (htmlDoc.DocumentNode.SelectNodes("//title") != null)
-            {
-                foreach (HtmlNode node in htmlDoc.DocumentNode.SelectNodes("//title"))
-                {
-
-                    cumleSayisi++;
-                    string[] cumleKelime = node.InnerText.Split(' ');
-                    foreach (var item in cumleKelime)
-                    {
-                        if (!string.IsNullOrEmpty(item) && !string.IsNullOrWhiteSpace(item))
-                        {
-                            kelimeler.Add(item.ToLower());
-                        }
-
-
-                    }
-
-                }
-            }
-
-           if (htmlDoc.DocumentNode.SelectNodes("//meta") != null)
-            {
-                foreach (HtmlNode node in htmlDoc.DocumentNode.SelectNodes("//meta"))
-                {
-                    cumleSayisi++;
-                    string icerik = node.GetAttributeValue("content", "");
-                    string[] cumleKelime = icerik.Split(' ');
-
-                    foreach (var item in cumleKelime)
-                    {
-                        if (!string.IsNullOrEmpty(item) && !string.IsNullOrWhiteSpace(item))
-                        {
-
-                            kelimeler.Add(item.ToLower());
-
-                        }
-
-
-                    }
-
-                }
-            }
+            List<string> kelimeler = new List<string>(); 
 
             
-
-            if (htmlDoc.DocumentNode.SelectNodes("//img") != null)
-            {
-                foreach (HtmlNode node in htmlDoc.DocumentNode.SelectNodes("//img"))
-                {
-                    cumleSayisi++;
-                    string icerik = node.GetAttributeValue("alt", "");
-                    string[] cumleKelime = icerik.Split(' ');
-
-                    foreach (var item in cumleKelime)
-                    {
-                        if (!string.IsNullOrEmpty(item) && !string.IsNullOrWhiteSpace(item))
-                        {
-
-                            kelimeler.Add(item.ToLower());
-
-                        }
+            HtmlIsleyici htmlIsleyici1 = new HtmlIsleyici();
+            htmlIsleyici1.htmlIsle(htmlDoc);
+            kelimeler = htmlIsleyici1.kelimeler;
+            cumleSayisi = htmlIsleyici1.cumleSayisi;
 
 
-                    }
-
-                }
-            }
             
-
-            for (int j = 0; j < kelimeler.Count; j++)
-            {
-
-                for (int i = 0; i < kelimeler[j].Length; i++)
-                {
-                    if (Char.IsPunctuation(kelimeler[j][i]))
-                        kelimeler[j] = kelimeler[j].Remove(i, 1);
-
-                }
-               
-            }
-          
-
-            for (int i = 0; i < kelimeler.Count; i++)
-            {
-                string silincekMi = kelimeler[i];
-                kelimeler[i] = kelimeler[i].RemoveStopWords("en");
-                if (silincekMi != kelimeler[i])
-                {
-                    kelimeler.RemoveAt(i);
-                    i -= 1;
-
-                }
-
-
-            }
-
-            for (int i = 0; i < kelimeler.Count; i++)
-            {
-                if (String.IsNullOrEmpty(kelimeler[i]) || String.IsNullOrWhiteSpace(kelimeler[i]))
-                {
-                    kelimeler.RemoveAt(i);
-                    i -= 1;
-                }
-                if (urlDomain.Host.Contains(kelimeler[i]) == true)
-                {
-                    kelimeler.RemoveAt(i);
-                    i -= 1;
-                }
-            }
-
+            KelimeDuzeltici kelimeDuzeltici1 = new KelimeDuzeltici();
+            kelimeler=kelimeDuzeltici1.kelimeDuzelt(kelimeler, urlDomain);
          
            
 
-            List<WordAndFreq> KelimeSayilari = new List<WordAndFreq>();
-            int sayi = 0;
+            List<WordAndFreq> KelimeFrekans = new List<WordAndFreq>();
+            
+            KelimeFrekansYapici kelimeFrekansYapici1 = new KelimeFrekansYapici();
+            KelimeFrekans=kelimeFrekansYapici1.KelimeFrekansYap(kelimeler);
+           
 
-            List<string> kelimelerSon = new List<string>();
-
-            foreach (string item in kelimeler)
-            {
-
-                try
-                {
-                    if (oSpell.TestWord(item))
-                    {
-                        Console.WriteLine(item);
-                        sayi++;
-                        kelimelerSon.Add(item);
-                    }
-                }
-                catch
-                {
-                    Console.WriteLine("Devam");
-                }
-
-                
-
-            }
-
-
-            Console.WriteLine(kelimeler.Count);
-            Console.WriteLine("Kelimeler son "+kelimelerSon.Count);
-            Console.WriteLine(sayi);
+            
+            Console.WriteLine("Kelimeler son "+kelimeler.Count);
+         
             Console.WriteLine("Cümle sayısı: " + cumleSayisi);
 
-            for (int i = 0; i < kelimelerSon.Count; i++)
-            {
-               int kelimeFrekans = 1;
-                for (int j = i + 1; j < kelimelerSon.Count; j++)
-                {
-                    if (String.Equals(kelimelerSon[i], kelimelerSon[j]))
-                    {
-                        kelimeFrekans++;
-                        kelimelerSon.RemoveAt(j);
-                        j -= 1;
-                    }
-                }
-                WordAndFreq yeni = new WordAndFreq();
-                yeni.Word = kelimelerSon[i];
-                yeni.Frequency = kelimeFrekans;
-                KelimeSayilari.Add(yeni);
-            }
+        
 
-            foreach (var item in kelimelerSon)
-            {
-                Console.WriteLine(item);
-            }
+          
 
-            Console.WriteLine("----------------Frekans Listesi--------------------------------");
+            
+            Console.WriteLine("--------------=======================SIRALI===================----------------------");
 
-            foreach (var item in KelimeSayilari)
-            {
-                Console.WriteLine(item.Word + " " + item.Frequency);
-            }
-
-            KelimeSayilari = KelimeSayilari.OrderByDescending(x => x.Frequency).ToList();
-            Console.WriteLine("--------------=======================SIRALI===================000----------------------");
-
-            foreach (var item in KelimeSayilari)
+            foreach (var item in KelimeFrekans)
             {
                 Console.WriteLine(item.Word + " " + item.Frequency);
             }
@@ -283,14 +77,11 @@ namespace SiteIcerik
 
             List<WordAndWeight> weihtedKelimeler = new List<WordAndWeight>();
 
-            foreach (var item in KelimeSayilari)
-            {
+            AgirlikliKelimeListesi agirlikliKelimeListesi1 = new AgirlikliKelimeListesi();
 
-                WordAndWeight weightedKelime = new WordAndWeight();
-                weightedKelime.Weight = agirlikHesap.Calculate((float)item.Frequency, (float)kelimelerSon.Count, (float)cumleSayisi);
-                weightedKelime.Word = item.Word;
-                weihtedKelimeler.Add(weightedKelime);
-            }
+            weihtedKelimeler = agirlikliKelimeListesi1.AgirlikliListeYap(KelimeFrekans, kelimeler.Count, cumleSayisi);
+
+
 
             Console.WriteLine("Agirliklar belli oldu-------------------------------");
 
