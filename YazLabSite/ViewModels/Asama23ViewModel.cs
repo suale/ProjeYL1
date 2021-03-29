@@ -10,5 +10,7 @@ namespace YazLabSite.ViewModels
     {
         public List<WordAndFreq> KeywordListesi2 { get; set; }
         public List<WordAndFreq> KeywordListesi { get; set; }
+        public string Site1 { get; set; }
+        public string Site2 { get; set; }
     }
 }
