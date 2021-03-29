@@ -115,6 +115,7 @@
     <Compile Include="Models\HtmlIsleyici.cs" />
     <Compile Include="Models\KelimeDuzeltici.cs" />
     <Compile Include="Models\KelimeFrekansYapici.cs" />
+    <Compile Include="Models\KosinusBenzerlik.cs" />
     <Compile Include="Models\TfIdfCalculator.cs" />
     <Compile Include="Models\WordAndFreq.cs" />
     <Compile Include="Models\WordAndWeight.cs" />

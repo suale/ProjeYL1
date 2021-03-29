@@ -164,6 +164,8 @@ namespace YazLabSite.Controllers
             asama23ViewModel.KeywordListesi2 = anahtarKelimeler2;
             asama23ViewModel.Site1 = gelenUrl;
             asama23ViewModel.Site2 = gelenUrl2;
+            KosinusBenzerlik kosinusBenzerlik = new KosinusBenzerlik();
+            asama23ViewModel.Benzerlik = kosinusBenzerlik.BenzerlikBul(anahtarKelimeler, anahtarKelimeler2);
 
             return View(asama23ViewModel);
         }
