@@ -1,0 +1,36 @@
+﻿@model YazLabSite.ViewModels.Asama23ViewModel
+
+@{
+    ViewBag.Title = "IndexPost";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AŞAMA 23</h2>
+
+
+
+@if (Model.KeywordListesi != null&& Model.KeywordListesi2 != null)
+{
+    int sayi = 0;
+    if (Model.KeywordListesi.Count > Model.KeywordListesi2.Count)
+    {
+        sayi = Model.KeywordListesi.Count;
+    }
+    else
+    {
+        sayi = Model.KeywordListesi2.Count;
+    }
+
+
+
+
+    @Model.KeywordListesi.Count
+<ol>
+    @for (int i = 0; i < sayi; i++)
+    {
+    <li>@Model.KeywordListesi[i].Word @Model.KeywordListesi[i].Frequency @Model.KeywordListesi2[i].Word @Model.KeywordListesi2[i].Frequency</li>
+    }
+    
+</ol>
+
+}

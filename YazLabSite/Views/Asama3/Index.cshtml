@@ -1,0 +1,29 @@
+﻿@model YazLabSite.ViewModels.Asama3ViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AŞAMA3</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label>Benzerlik için 2. url giriniz: </label>
+        <input style="min-width:35%;" type="text" name="gelenUrl" class="form-control" />
+        <input style="min-width:35%;" type="text" name="gelenUrl2" class="form-control" value="@Model.Url" />
+        <button type="submit" class="btn btn-success">Getir</button>
+    </div>
+    </form>
+
+@if (Model.KeywordListesi != null)
+{
+    @Model.KeywordListesi.Count
+    <ol>
+        @foreach (var item in Model.KeywordListesi)
+        {
+            <li>@item.Word @item.Frequency</li>
+        }
+    </ol>
+ 
+}

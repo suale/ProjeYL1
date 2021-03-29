@@ -75,7 +75,8 @@ namespace YazLabSite.Controllers
 
             asama2ViewModel.KeywordListesi = anahtarKelimeler;
 
-            return View(asama2ViewModel);
+            //return View(asama2ViewModel);
+            return RedirectToAction("Index", "Asama3",new { gelenUrl = url});
         }
 
 
