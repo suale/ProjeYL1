@@ -6,16 +6,16 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{C0B7AB84-2D36-4A44-A021-2E6E5472B332}</ProjectGuid>
+    <ProjectGuid>{8D2F87D2-08FD-4728-8C7D-B00A3D890DFB}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjeYL1</RootNamespace>
-    <AssemblyName>ProjeYL1</AssemblyName>
+    <RootNamespace>YazLabSite</RootNamespace>
+    <AssemblyName>YazLabSite</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>44332</IISExpressSSLPort>
+    <IISExpressSSLPort>44356</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -42,8 +42,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack, Version=1.11.31.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlAgilityPack.1.11.31\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.11.32.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.32\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=3.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -55,14 +55,8 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="NZemberek, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NZemberek.0.1\lib\NZemberek.dll</HintPath>
-    </Reference>
     <Reference Include="src, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\dotnet-stop-words.1.1.0\lib\netstandard2.0\src.dll</HintPath>
-    </Reference>
-    <Reference Include="StemmersNet, Version=1.1.1.0, Culture=neutral, PublicKeyToken=5b16b226aedf3c3b, processorArchitecture=MSIL">
-      <HintPath>..\packages\StemmersNet.1.1.1.0\lib\net20\StemmersNet.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -106,41 +100,30 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Resources\tr\item-groups.txt" />
-    <Content Include="Resources\tr\phonetics\english-letter-names.txt" />
-    <Content Include="Resources\tr\phonetics\english-phones-to-turkish.txt" />
-    <Content Include="Resources\tr\phonetics\turkish-letter-names.txt" />
-    <Content Include="Resources\tr\phonetics\turkish-letter-pronunciation.txt" />
-    <Content Include="Resources\tr\turkish-ordinal-numbers.txt" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\Asama2Controller.cs" />
+    <Compile Include="Controllers\Asama1Controller.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AgirlikliKelimeListesi.cs" />
+    <Compile Include="Models\AnahtarKelimeBelirleyici.cs" />
+    <Compile Include="Models\HtmlIsleyici.cs" />
+    <Compile Include="Models\KelimeDuzeltici.cs" />
+    <Compile Include="Models\KelimeFrekansYapici.cs" />
+    <Compile Include="Models\TfIdfCalculator.cs" />
+    <Compile Include="Models\WordAndFreq.cs" />
+    <Compile Include="Models\WordAndWeight.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Asama1ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
     <None Include="packages.config" />
-    <Content Include="Resources\tr\tdk-obsolete.dict" />
-    <Content Include="Resources\tr\special-dictionary-item-root-suffix-data" />
-    <Content Include="Resources\tr\proper.dict" />
-    <Content Include="Resources\tr\proper-ignore" />
-    <Content Include="Resources\tr\proper-from-corpus.dict" />
-    <Content Include="Resources\tr\person-names.dict" />
-    <Content Include="Resources\tr\non-tdk.dict" />
-    <Content Include="Resources\tr\master-dictionary.dict" />
-    <Content Include="Resources\tr\locations-tr.dict" />
-    <Content Include="Resources\tr\lexicon.bin" />
-    <Content Include="Resources\tr\informal.dict" />
-    <Content Include="Resources\tr\first-10K" />
-    <Content Include="Resources\tr\ambiguity\model-compressed" />
-    <Content Include="Resources\tr\abbreviations.dict" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Asama2\Index.cshtml" />
+    <Content Include="Views\Asama1\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -150,7 +133,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -165,9 +147,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>2368</DevelopmentServerPort>
+          <DevelopmentServerPort>18484</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44332/</IISUrl>
+          <IISUrl>https://localhost:44356/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

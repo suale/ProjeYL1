@@ -1,0 +1,15 @@
+﻿@model YazLabSite.ViewModels.Asama1ViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@Model.FrekansListesi.Count
+<ol>
+    @foreach (var item in Model.FrekansListesi)
+    {
+        <li>@item.Word @item.Frequency</li>
+    }
+</ol>

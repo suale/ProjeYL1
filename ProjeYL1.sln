@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjeYL1", "ProjeYL1\ProjeYL1.csproj", "{C0B7AB84-2D36-4A44-A021-2E6E5472B332}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteIcerik", "SiteIcerik\SiteIcerik.csproj", "{3000227F-139F-4450-AC59-7BF80F43E948}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YazLabSite", "YazLabSite\YazLabSite.csproj", "{8D2F87D2-08FD-4728-8C7D-B00A3D890DFB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C0B7AB84-2D36-4A44-A021-2E6E5472B332}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C0B7AB84-2D36-4A44-A021-2E6E5472B332}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C0B7AB84-2D36-4A44-A021-2E6E5472B332}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C0B7AB84-2D36-4A44-A021-2E6E5472B332}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3000227F-139F-4450-AC59-7BF80F43E948}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3000227F-139F-4450-AC59-7BF80F43E948}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3000227F-139F-4450-AC59-7BF80F43E948}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3000227F-139F-4450-AC59-7BF80F43E948}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D2F87D2-08FD-4728-8C7D-B00A3D890DFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D2F87D2-08FD-4728-8C7D-B00A3D890DFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D2F87D2-08FD-4728-8C7D-B00A3D890DFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D2F87D2-08FD-4728-8C7D-B00A3D890DFB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
