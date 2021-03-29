@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YazLabSite.Models
 {
-    class WordAndWeight
+   public class WordAndWeight
     {
         public string Word { get; set; }
         public float Weight { get; set; }

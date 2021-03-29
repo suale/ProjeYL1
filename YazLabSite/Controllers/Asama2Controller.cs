@@ -10,19 +10,18 @@ using System.Web.Mvc;
 using YazLabSite.Models;
 using YazLabSite.ViewModels;
 
-
 namespace YazLabSite.Controllers
 {
-    public class Asama1Controller : Controller
+    public class Asama2Controller : Controller
     {
-        
+        [Route("Asama2/index")]
         [HttpGet]
         public ActionResult Index()
-        
         {
-            Asama1ViewModel asama1ViewModel = new Asama1ViewModel();
-            return View(asama1ViewModel);
+            Asama2ViewModel asama2ViewModel = new Asama2ViewModel();
+            return View(asama2ViewModel);
         }
+        [Route("Asama2/index")]
         [HttpPost]
         public ActionResult Index(string gelenUrl)
         {
@@ -30,9 +29,7 @@ namespace YazLabSite.Controllers
             string url = gelenUrl;
 
             Uri urlDomain = new Uri(url);
-            Console.WriteLine("Domain part : " + urlDomain.Host); //Domain ayrıştırır
-
-
+           
 
             string downloadString = client.DownloadString(url);//parametre olarak gelcek -- HTML olarak content indirilir
 
@@ -48,31 +45,39 @@ namespace YazLabSite.Controllers
 
             List<string> kelimeler = new List<string>();
 
-
             HtmlIsleyici htmlIsleyici1 = new HtmlIsleyici();
             htmlIsleyici1.htmlIsle(htmlDoc);
             kelimeler = htmlIsleyici1.kelimeler;
             cumleSayisi = htmlIsleyici1.cumleSayisi;
 
-
-
             KelimeDuzeltici kelimeDuzeltici1 = new KelimeDuzeltici();
             kelimeler = kelimeDuzeltici1.kelimeDuzelt(kelimeler, urlDomain);
-
-
 
             List<WordAndFreq> kelimeFrekans = new List<WordAndFreq>();
 
             KelimeFrekansYapici kelimeFrekansYapici1 = new KelimeFrekansYapici();
             kelimeFrekans = kelimeFrekansYapici1.KelimeFrekansYap(kelimeler);
+               
 
-            Asama1ViewModel asama1ViewModel = new Asama1ViewModel();
+            TfIdfCalculator agirlikHesap = new TfIdfCalculator();
 
-            asama1ViewModel.FrekansListesi = kelimeFrekans;
-            
-            return View(asama1ViewModel);
+            List<WordAndWeight> weihtedKelimeler = new List<WordAndWeight>();
 
+            AgirlikliKelimeListesi agirlikliKelimeListesi1 = new AgirlikliKelimeListesi();
 
+            weihtedKelimeler = agirlikliKelimeListesi1.AgirlikliListeYap(kelimeFrekans, kelimeler.Count, cumleSayisi);
+
+            AnahtarKelimeBelirleyici anahtarKelimeBelirleyici1 = new AnahtarKelimeBelirleyici();
+            List<WordAndFreq> anahtarKelimeler = new List<WordAndFreq>();
+            anahtarKelimeler = anahtarKelimeBelirleyici1.AnahtarKelimeBelirle(weihtedKelimeler, kelimeFrekans);
+
+            Asama2ViewModel asama2ViewModel = new Asama2ViewModel();
+
+            asama2ViewModel.KeywordListesi = anahtarKelimeler;
+
+            return View(asama2ViewModel);
         }
+
+
     }
 }
