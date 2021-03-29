@@ -5,11 +5,24 @@
 }
 
 <h2>Index</h2>
+<form method="post">
+    <div class="form-group">
+        <label>Frekans için url giriniz</label>
+        <input type="text" name="gelenUrl" class="form-control" />
+        <button type="submit" class="btn btn-success">Getir</button>
 
-@Model.FrekansListesi.Count
+    </div>
+</form>
+
+
+@if (Model.FrekansListesi != null)
+{
+    @Model.FrekansListesi.Count
 <ol>
     @foreach (var item in Model.FrekansListesi)
     {
         <li>@item.Word @item.Frequency</li>
     }
 </ol>
+
+}

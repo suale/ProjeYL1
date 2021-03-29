@@ -15,11 +15,19 @@ namespace YazLabSite.Controllers
 {
     public class Asama1Controller : Controller
     {
-        // GET: Asama1
+
+        [HttpGet]
         public ActionResult Index()
+        
+        {
+            Asama1ViewModel asama1ViewModel = new Asama1ViewModel();
+            return View(asama1ViewModel);
+        }
+        [HttpPost]
+        public ActionResult Index(string gelenUrl)
         {
             WebClient client = new WebClient();
-            string url = "https://www.hobo-web.co.uk/keyword-density-seo-myth/";
+            string url = gelenUrl;
 
             Uri urlDomain = new Uri(url);
             Console.WriteLine("Domain part : " + urlDomain.Host); //Domain ayrıştırır
@@ -61,8 +69,10 @@ namespace YazLabSite.Controllers
             Asama1ViewModel asama1ViewModel = new Asama1ViewModel();
 
             asama1ViewModel.FrekansListesi = kelimeFrekans;
-
+            
             return View(asama1ViewModel);
+
+
         }
     }
 }
