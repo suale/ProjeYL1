@@ -16,12 +16,13 @@ namespace SiteIcerik
 
 
             WebClient client = new WebClient();
-            string url = "https://www.hobo-web.co.uk/keyword-density-seo-myth/";
+            string url = "https://tr.wikipedia.org/wiki/Anasayfa";
 
             Uri urlDomain = new Uri(url);
             Console.WriteLine("Domain part : " + urlDomain.Host); //Domain ayrıştırır
 
-
+            string aranacak = urlDomain.Host;
+            Console.WriteLine("Aranacak------------>"+aranacak);
 
             string downloadString = client.DownloadString(url);//parametre olarak gelcek -- HTML olarak content indirilir
 
@@ -35,68 +36,82 @@ namespace SiteIcerik
 
             var stopWords = StopWords.GetStopWords("en"); // Metin işlenirken yararı olmayacak kelimelerin ayıklanması adına ingilizce stopwordsun ilgili değişkene atanması.
             
-            List<string> kelimeler = new List<string>(); 
+            List<string> kelimeler = new List<string>();
+
+            if (htmlDoc.DocumentNode.SelectNodes("//a[@href]") != null)
+            {
+                foreach (HtmlNode node in htmlDoc.DocumentNode.SelectNodes("//a[@href]"))
+                {
+
+                    string hrefValue = node.GetAttributeValue("href", string.Empty);
+
+                    if (hrefValue.Contains(aranacak))
+                        Console.WriteLine(hrefValue);
+
+
+                }
+            }
+
+
+            //HtmlIsleyici htmlIsleyici1 = new HtmlIsleyici();
+            //htmlIsleyici1.htmlIsle(htmlDoc);
+            //kelimeler = htmlIsleyici1.kelimeler;
+            //cumleSayisi = htmlIsleyici1.cumleSayisi;
+
 
             
-            HtmlIsleyici htmlIsleyici1 = new HtmlIsleyici();
-            htmlIsleyici1.htmlIsle(htmlDoc);
-            kelimeler = htmlIsleyici1.kelimeler;
-            cumleSayisi = htmlIsleyici1.cumleSayisi;
-
-
-            
-            KelimeDuzeltici kelimeDuzeltici1 = new KelimeDuzeltici();
-            kelimeler=kelimeDuzeltici1.kelimeDuzelt(kelimeler, urlDomain);
+            //KelimeDuzeltici kelimeDuzeltici1 = new KelimeDuzeltici();
+            //kelimeler=kelimeDuzeltici1.kelimeDuzelt(kelimeler, urlDomain);
          
            
 
-            List<WordAndFreq> kelimeFrekans = new List<WordAndFreq>();
+            //List<WordAndFreq> kelimeFrekans = new List<WordAndFreq>();
             
-            KelimeFrekansYapici kelimeFrekansYapici1 = new KelimeFrekansYapici();
-            kelimeFrekans=kelimeFrekansYapici1.KelimeFrekansYap(kelimeler);
+            //KelimeFrekansYapici kelimeFrekansYapici1 = new KelimeFrekansYapici();
+            //kelimeFrekans=kelimeFrekansYapici1.KelimeFrekansYap(kelimeler);
            
 
             
-            Console.WriteLine("Kelimeler son "+kelimeler.Count);
+            //Console.WriteLine("Kelimeler son "+kelimeler.Count);
          
-            Console.WriteLine("Cümle sayısı: " + cumleSayisi);
+            //Console.WriteLine("Cümle sayısı: " + cumleSayisi);
 
         
 
           
 
             
-            Console.WriteLine("--------------=======================SIRALI===================----------------------");
+            //Console.WriteLine("--------------=======================SIRALI===================----------------------");
 
-            foreach (var item in kelimeFrekans)
-            {
-                Console.WriteLine(item.Word + " " + item.Frequency);
-            }
+            //foreach (var item in kelimeFrekans)
+            //{
+            //    Console.WriteLine(item.Word + " " + item.Frequency);
+            //}
 
-            TfIdfCalculator agirlikHesap = new TfIdfCalculator();
+            //TfIdfCalculator agirlikHesap = new TfIdfCalculator();
 
-            List<WordAndWeight> weihtedKelimeler = new List<WordAndWeight>();
+            //List<WordAndWeight> weihtedKelimeler = new List<WordAndWeight>();
 
-            AgirlikliKelimeListesi agirlikliKelimeListesi1 = new AgirlikliKelimeListesi();
+            //AgirlikliKelimeListesi agirlikliKelimeListesi1 = new AgirlikliKelimeListesi();
 
-            weihtedKelimeler = agirlikliKelimeListesi1.AgirlikliListeYap(kelimeFrekans, kelimeler.Count, cumleSayisi);
+            //weihtedKelimeler = agirlikliKelimeListesi1.AgirlikliListeYap(kelimeFrekans, kelimeler.Count, cumleSayisi);
 
 
 
-            Console.WriteLine("Agirliklar belli oldu-------------------------------");
+            //Console.WriteLine("Agirliklar belli oldu-------------------------------");
 
-            foreach (var item in weihtedKelimeler)
-            {
-                Console.WriteLine(item.Word+"---------------"+item.Weight);
-            }
-            Console.WriteLine("??????????????????????????ANAHTAR KELİMELER???????????????????????????????");
-            AnahtarKelimeBelirleyici anahtarKelimeBelirleyici1 = new AnahtarKelimeBelirleyici();
-            List<WordAndFreq> anahtarKelimeler = new List<WordAndFreq>();
-            anahtarKelimeler = anahtarKelimeBelirleyici1.AnahtarKelimeBelirle(weihtedKelimeler, kelimeFrekans);
-            foreach (var item in anahtarKelimeler)
-            {
-                Console.WriteLine(item.Word+ " ----- "+ item.Frequency);
-            }
+            //foreach (var item in weihtedKelimeler)
+            //{
+            //    Console.WriteLine(item.Word+"---------------"+item.Weight);
+            //}
+            //Console.WriteLine("??????????????????????????ANAHTAR KELİMELER???????????????????????????????");
+            //AnahtarKelimeBelirleyici anahtarKelimeBelirleyici1 = new AnahtarKelimeBelirleyici();
+            //List<WordAndFreq> anahtarKelimeler = new List<WordAndFreq>();
+            //anahtarKelimeler = anahtarKelimeBelirleyici1.AnahtarKelimeBelirle(weihtedKelimeler, kelimeFrekans);
+            //foreach (var item in anahtarKelimeler)
+            //{
+            //    Console.WriteLine(item.Word+ " ----- "+ item.Frequency);
+            //}
 
             Console.ReadLine();
         }

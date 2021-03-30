@@ -108,15 +108,19 @@
     <Compile Include="Controllers\Asama1Controller.cs" />
     <Compile Include="Controllers\Asama2Controller.cs" />
     <Compile Include="Controllers\Asama3Controller.cs" />
+    <Compile Include="Controllers\Asama4Controller.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AgirlikliKelimeListesi.cs" />
     <Compile Include="Models\AnahtarKelimeBelirleyici.cs" />
+    <Compile Include="Models\BenzerlikHesapla.cs" />
     <Compile Include="Models\HtmlIsleyici.cs" />
     <Compile Include="Models\KelimeDuzeltici.cs" />
     <Compile Include="Models\KelimeFrekansYapici.cs" />
     <Compile Include="Models\KosinusBenzerlik.cs" />
+    <Compile Include="Models\KumeSiteBilgi.cs" />
+    <Compile Include="Models\SubDomainBul.cs" />
     <Compile Include="Models\TfIdfCalculator.cs" />
     <Compile Include="Models\WordAndFreq.cs" />
     <Compile Include="Models\WordAndWeight.cs" />
@@ -135,6 +139,7 @@
     <Content Include="Views\Asama3\Index.cshtml" />
     <Content Include="Views\Asama3\IndexPost.cshtml" />
     <Content Include="Views\Asama3\Son.cshtml" />
+    <Content Include="Views\Asama4\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
