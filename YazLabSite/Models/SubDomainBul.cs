@@ -19,8 +19,16 @@ namespace YazLabSite.Models
             Uri urlDomain = new Uri(url);
 
             string aranacak = urlDomain.Host;
-
-            string downloadString = client.DownloadString(url);//parametre olarak gelcek -- HTML olarak content indirilir
+            string downloadString="";
+            try
+            {
+                 downloadString = client.DownloadString(url);//parametre olarak gelcek -- HTML olarak content indirilir
+            }
+            catch
+            {
+                
+            } 
+            
 
             byte[] bytes = Encoding.Default.GetBytes(downloadString);
             downloadString = Encoding.UTF8.GetString(bytes); //indirilen HTML utf-8 e çevrildi. Yapılmasa da olur zira ingilizce yaptık sonradan.

@@ -22,6 +22,7 @@ namespace YazLabSite.Controllers
             string asilUrl = gelenUrl;
 
             List<string> urlLer = new List<string>();
+         
             urlLer.Add(gelenUrl1);
             urlLer.Add(gelenUrl2);
             urlLer.Add(gelenUrl3);
@@ -38,8 +39,39 @@ namespace YazLabSite.Controllers
             urlLer.Add(gelenUrl14);
             urlLer.Add(gelenUrl15);
 
+            for (int i = 0; i < urlLer.Count; i++)
+            {
+                if (urlLer[i] == "")
+                {
+                    urlLer.RemoveAt(i);
+                    i--;
+                }
+                    
+            }
 
 
+
+            List<string> ikinciSeviyeUrller = new List<string>();
+            List<string> ucuncuSeviyerUrller = new List<string>();
+            SubDomainBul subDomainBul = new SubDomainBul();
+            foreach(var url in urlLer)
+            {
+                List<string> gelenUrller = new List<string>();
+                gelenUrller = subDomainBul.altAlanAdiBul(url);
+                foreach (var item in gelenUrller)
+                {
+                    ikinciSeviyeUrller.Add(item);
+                }
+            }
+            foreach (var url in ikinciSeviyeUrller)
+            {
+                List<string> gelenUrller = new List<string>();
+                gelenUrller = subDomainBul.altAlanAdiBul(url);
+                foreach (var item in gelenUrller)
+                {
+                    ucuncuSeviyerUrller.Add(item);
+                }
+            }
 
 
             return View();
