@@ -49,8 +49,6 @@ namespace YazLabSite.Controllers
                     
             }
 
-
-
             List<string> ikinciSeviyeUrller = new List<string>();
             List<string> ucuncuSeviyerUrller = new List<string>();
             SubDomainBul subDomainBul = new SubDomainBul();
@@ -71,6 +69,22 @@ namespace YazLabSite.Controllers
                 {
                     ucuncuSeviyerUrller.Add(item);
                 }
+            }
+
+            BenzerlikHesapla benzerlikHesapla = new BenzerlikHesapla();
+
+            List<double> sonuclar = new List<double>();
+            foreach (var item in urlLer)
+            {
+                sonuclar.Add(benzerlikHesapla.BenzerlikBul(item, asilUrl));
+            }
+            foreach (var item in ikinciSeviyeUrller)
+            {
+                sonuclar.Add(benzerlikHesapla.BenzerlikBul(item, asilUrl));
+            }
+            foreach (var item in ucuncuSeviyerUrller)
+            {
+                sonuclar.Add(benzerlikHesapla.BenzerlikBul(item, asilUrl));
             }
 
 

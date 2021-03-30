@@ -36,6 +36,9 @@ namespace YazLabSite.Models
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(downloadString);
 
+            
+
+
             if (htmlDoc.DocumentNode.SelectNodes("//a[@href]") != null)
             {
                 foreach (HtmlNode node in htmlDoc.DocumentNode.SelectNodes("//a[@href]"))
@@ -44,7 +47,11 @@ namespace YazLabSite.Models
                     string hrefValue = node.GetAttributeValue("href", string.Empty);
 
                     if (hrefValue.Contains(aranacak))
+                    {
                         altUrleler.Add(hrefValue);
+                        
+                    }
+                        
 
 
                 }

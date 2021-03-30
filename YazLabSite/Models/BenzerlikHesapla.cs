@@ -22,8 +22,19 @@ namespace YazLabSite.Models
             Uri urlDomain = new Uri(url);
             Uri urlDomain2 = new Uri(url2);
 
-            string downloadString = client.DownloadString(url);//parametre olarak gelcek -- HTML olarak content indirilir
-            string downloadString2 = client.DownloadString(url2);
+           
+
+            string downloadString = "";
+            string downloadString2 = "";
+            try
+            {
+                 downloadString = client.DownloadString(url);//parametre olarak gelcek -- HTML olarak content indirilir
+                 downloadString2 = client.DownloadString(url2);
+            }
+            catch
+            {
+
+            }
 
 
             byte[] bytes = Encoding.Default.GetBytes(downloadString);
