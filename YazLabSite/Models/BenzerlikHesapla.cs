@@ -33,7 +33,7 @@ namespace YazLabSite.Models
             }
             catch
             {
-
+               
             }
 
 

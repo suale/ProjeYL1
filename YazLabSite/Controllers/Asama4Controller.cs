@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using YazLabSite.Models;
+using YazLabSite.ViewModels;
 
 namespace YazLabSite.Controllers
 {
@@ -74,21 +75,53 @@ namespace YazLabSite.Controllers
             BenzerlikHesapla benzerlikHesapla = new BenzerlikHesapla();
 
             List<double> sonuclar = new List<double>();
-            foreach (var item in urlLer)
+            //foreach (var item in urlLer)
+            //{
+            //    sonuclar.Add(benzerlikHesapla.BenzerlikBul(item, asilUrl));
+            //}
+            //foreach (var item in ikinciSeviyeUrller)
+            //{
+            //    sonuclar.Add(benzerlikHesapla.BenzerlikBul(item, asilUrl));
+            //}
+            //foreach (var item in ucuncuSeviyerUrller)
+            //{
+            //    sonuclar.Add(benzerlikHesapla.BenzerlikBul(item, asilUrl));
+            //}
+
+            Asama4ViewModel gidecekListe = new Asama4ViewModel();
+
+            for (int i = 0; i < urlLer.Count; i++)//urlLer.Count
             {
-                sonuclar.Add(benzerlikHesapla.BenzerlikBul(item, asilUrl));
+                double benzerlikOrani = benzerlikHesapla.BenzerlikBul(urlLer[i], asilUrl);
+                sonuclar.Add(benzerlikOrani);
+                Asama4Sonuc gidecek = new Asama4Sonuc();
+                gidecek.benzerlikOrani = benzerlikOrani;
+                gidecek.seviye = 1;
+                gidecek.url = urlLer[i];
+                gidecekListe.sonuclar.Add(gidecek);
             }
-            foreach (var item in ikinciSeviyeUrller)
+            for (int i = 0; i < 2; i++)//ikinciSeviyeUrller.Count
             {
-                sonuclar.Add(benzerlikHesapla.BenzerlikBul(item, asilUrl));
+                double benzerlikOrani = benzerlikHesapla.BenzerlikBul(ikinciSeviyeUrller[i], asilUrl);
+                sonuclar.Add(benzerlikOrani);
+                Asama4Sonuc gidecek = new Asama4Sonuc();
+                gidecek.benzerlikOrani = benzerlikOrani;
+                gidecek.seviye = 2;
+                gidecek.url = ikinciSeviyeUrller[i];
+                gidecekListe.sonuclar.Add(gidecek);
             }
-            foreach (var item in ucuncuSeviyerUrller)
+            for (int i = 0; i < 2; i++)//ucuncuSeviyerUrller.Count
             {
-                sonuclar.Add(benzerlikHesapla.BenzerlikBul(item, asilUrl));
+                double benzerlikOrani = benzerlikHesapla.BenzerlikBul(ucuncuSeviyerUrller[i], asilUrl);
+                sonuclar.Add(benzerlikOrani);
+                Asama4Sonuc gidecek = new Asama4Sonuc();
+                gidecek.benzerlikOrani = benzerlikOrani;
+                gidecek.seviye = 3;
+                gidecek.url = ucuncuSeviyerUrller[i];
+                gidecekListe.sonuclar.Add(gidecek);
             }
 
-
-            return View();
+            return View(gidecekListe);
         }
 
     }

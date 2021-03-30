@@ -129,6 +129,8 @@
     <Compile Include="ViewModels\Asama23ViewModel.cs" />
     <Compile Include="ViewModels\Asama2ViewModel.cs" />
     <Compile Include="ViewModels\Asama3ViewModel.cs" />
+    <Compile Include="ViewModels\Asama4Sonuc.cs" />
+    <Compile Include="ViewModels\Asama4ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
