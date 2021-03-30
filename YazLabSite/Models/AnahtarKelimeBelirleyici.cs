@@ -16,7 +16,7 @@ namespace YazLabSite.Models
 
             weightedKelimeler = weightedKelimeler.OrderByDescending(x => x.Weight).ToList();
 
-            sinir = weightedKelimeler.Count * 2 / 9;
+            sinir = weightedKelimeler.Count * 3 / 9;
 
             for (int i = 0; i < sinir; i++)
             {
